@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper, Sciccors, Rock</title>
+</head>
+
+<body>
+
+    <script>
+
+        function computerPlay() {
+            let random = Math.floor(Math.random() * 3);
+
+            if (random == 0) {
+                return "rock";
+            } else if (random == 1) {
+                return "paper";
+            } else {
+                return "scissors";
+            }
+        }
+
+        function playerSelection() {
+            let playerSel = prompt("Choose paper, scissors, or rock");
+            playerSel.toLowerCase();
+
+            return playerSel.toLocaleLowerCase();
+        }
+
+        let userPoints = 0;
+        let comPoints = 0;
+
+        function playRound() {
+            let comSel = computerPlay();
+            let userSel = playerSelection();
+
+
+
+
+            if (comSel === userSel) {
+                console.log("tie");
+                console.log("Player = " + userPoints + ". Computer = " + comPoints);
+            } else if (comSel == "rock" && userSel == "paper") {
+                console.log("player wins");
+                userPoints++
+                console.log("Player = " + userPoints + ". Computer = " + comPoints);
+            } else if (comSel == "rock" && userSel == "scissors") {
+                console.log("player loses");
+                comPoints++
+                console.log("Player = " + userPoints + ". Computer = " + comPoints);
+            } else if (comSel == "scissors" && userSel == "rock") {
+                console.log("player wins");
+                userPoints++
+                console.log("Player = " + userPoints + ". Computer = " + comPoints);
+            } else if (comSel == "scissors" && userSel == "paper") {
+                console.log("player loses");
+                comPoints++
+                console.log("Player = " + userPoints + ". Computer = " + comPoints);
+            } else if (comSel == "paper" && userSel == "rock") {
+                console.log("player loses");
+                comPoints++
+                console.log("Player = " + userPoints + ". Computer = " + comPoints);
+            } else if (comSel == "paper" && userSel == "scissors") {
+                console.log("player wins");
+                userPoints++
+                console.log("Player = " + userPoints + ". Computer = " + comPoints);
+            } else {
+                console.log("Error. Incorrect input.");
+            }
+
+        }
+
+        function game() {
+            for (let i = 0; i < 5; i++) {
+                playRound();
+            }
+            if (comPoints > userPoints) {
+                console.log("You lose, the computer beat you " + comPoints + " to " + userPoints + ".");
+            } else {
+                console.log("You win, " + userPoints + " to " + comPoints + ".");
+            }
+        }
+
+        game();
+    </script>
+
+</body>
+
+</html>
