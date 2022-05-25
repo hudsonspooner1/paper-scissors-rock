@@ -9,84 +9,151 @@
 </head>
 
 <body>
+    <h1>Select Paper, Scissors, or Rock!</h1>
+    <h2>First to 3 points wins!</h3>
+        <div>
+            <button id="paper">Paper</button>
 
-    <script>
+            <button id="scissors">Scissors</button>
 
-        function computerPlay() {
-            let random = Math.floor(Math.random() * 3);
+            <button id="rock">Rock</button>
 
-            if (random == 0) {
-                return "rock";
-            } else if (random == 1) {
-                return "paper";
-            } else {
-                return "scissors";
-            }
-        }
+        </div>
 
-        function playerSelection() {
-            let playerSel = prompt("Choose paper, scissors, or rock");
-            playerSel.toLowerCase();
+        <div>
+            <h2>Points:</h2>
+            <h4 id="round">Round: 1</h4>
+            <p id="outcome"></p>
+            <p id="plPts">Player: 0</p>
+            <p id="pcPts">Computer: 0</p>
+        </div>
 
-            return playerSel.toLocaleLowerCase();
-        }
-
-        let userPoints = 0;
-        let comPoints = 0;
-
-        function playRound() {
-            let comSel = computerPlay();
-            let userSel = playerSelection();
+        <h1 id="result"></h1>
 
 
 
 
-            if (comSel === userSel) {
-                console.log("tie");
-                console.log("Player = " + userPoints + ". Computer = " + comPoints);
-            } else if (comSel == "rock" && userSel == "paper") {
-                console.log("player wins");
-                userPoints++
-                console.log("Player = " + userPoints + ". Computer = " + comPoints);
-            } else if (comSel == "rock" && userSel == "scissors") {
-                console.log("player loses");
-                comPoints++
-                console.log("Player = " + userPoints + ". Computer = " + comPoints);
-            } else if (comSel == "scissors" && userSel == "rock") {
-                console.log("player wins");
-                userPoints++
-                console.log("Player = " + userPoints + ". Computer = " + comPoints);
-            } else if (comSel == "scissors" && userSel == "paper") {
-                console.log("player loses");
-                comPoints++
-                console.log("Player = " + userPoints + ". Computer = " + comPoints);
-            } else if (comSel == "paper" && userSel == "rock") {
-                console.log("player loses");
-                comPoints++
-                console.log("Player = " + userPoints + ". Computer = " + comPoints);
-            } else if (comSel == "paper" && userSel == "scissors") {
-                console.log("player wins");
-                userPoints++
-                console.log("Player = " + userPoints + ". Computer = " + comPoints);
-            } else {
-                console.log("Error. Incorrect input.");
+        <script>
+
+            function computerPlay() {
+                let random = Math.floor(Math.random() * 3);
+
+                if (random == 0) {
+                    return "rock";
+                } else if (random == 1) {
+                    return "paper";
+                } else {
+                    return "scissors";
+                }
             }
 
-        }
+            function playRound() {
 
-        function game() {
-            for (let i = 0; i < 5; i++) {
-                playRound();
-            }
-            if (comPoints > userPoints) {
-                console.log("You lose, the computer beat you " + comPoints + " to " + userPoints + ".");
-            } else {
-                console.log("You win, " + userPoints + " to " + comPoints + ".");
-            }
-        }
 
-        game();
-    </script>
+                const rock = document.querySelector('#rock');
+                rock.addEventListener('click', () => {
+                    choseRock();
+                });
+
+                const paper = document.querySelector('#paper');
+                paper.addEventListener('click', () => {
+                    chosePaper();
+                });
+
+                const scissors = document.querySelector('#scissors');
+                scissors.addEventListener('click', () => {
+                    choseScissors();
+                });
+            }
+
+            let userPoints = 0;
+            let comPoints = 0;
+            let round = 1;
+
+            function choseRock() {
+                let comSel = computerPlay();
+                ++round
+                console.log(round);
+                document.getElementById("round").innerHTML = "Round: " + round
+
+                if (comSel == "rock") {
+                    document.getElementById("outcome").innerHTML = "Draw";
+                } else if (comSel == "paper") {
+                    document.getElementById("outcome").innerHTML = "Player loses";
+                    ++comPoints
+                    document.getElementById("pcPts").innerHTML = "Computer: " + comPoints
+                } else if (comSel == "scissors") {
+                    document.getElementById("outcome").innerHTML = "Player wins";
+                    ++userPoints
+                    document.getElementById("plPts").innerHTML = "Player: " + userPoints
+                }
+
+                if (comPoints + userPoints == 5 && userPoints > comPoints) {
+                    document.getElementById("result").innerHTML = "You win!"
+                } else if (comPoints + userPoints == 5 && userPoints < comPoints) {
+                    document.getElementById("result").innerHTML = "You lost!"
+                }
+            }
+
+            function chosePaper() {
+                ++round
+                console.log(round);
+                document.getElementById("round").innerHTML = "Round: " + round
+
+                let comSel = computerPlay();
+
+                if (comSel == "rock") {
+                    document.getElementById("outcome").innerHTML = "Player wins";
+                    ++userPoints
+                    document.getElementById("plPts").innerHTML = "Player: " + userPoints
+                } else if (comSel == "paper") {
+                    document.getElementById("outcome").innerHTML = "Draw";
+                } else if (comSel == "scissors") {
+                    document.getElementById("outcome").innerHTML = "Player loses";
+                    ++comPoints
+                    document.getElementById("pcPts").innerHTML = "Computer: " + comPoints
+                }
+
+                if (comPoints + userPoints == 5 && userPoints > comPoints) {
+                    document.getElementById("result").innerHTML = "You win!"
+                } else if (comPoints + userPoints == 5 && userPoints < comPoints) {
+                    document.getElementById("result").innerHTML = "You lost!"
+                }
+
+            }
+
+
+            function choseScissors() {
+                ++round
+                console.log(round);
+                document.getElementById("round").innerHTML = "Round: " + round
+
+                let comSel = computerPlay();
+
+                if (comSel == "rock") {
+                    document.getElementById("outcome").innerHTML = "Player loses";
+                    ++comPoints
+                    document.getElementById("pcPts").innerHTML = "Computer: " + comPoints
+                } else if (comSel == "paper") {
+                    document.getElementById("outcome").innerHTML = "Player wins";
+                    ++userPoints
+                    document.getElementById("plPts").innerHTML = "Player: " + userPoints
+                } else if (comSel == "scissors") {
+                    document.getElementById("outcome").innerHTML = "Draw";
+                }
+
+                if (comPoints + userPoints == 5 && userPoints > comPoints) {
+                    document.getElementById("result").innerHTML = "You win!"
+                } else if (comPoints + userPoints == 5 && userPoints < comPoints) {
+                    document.getElementById("result").innerHTML = "You lost!"
+                }
+            }
+
+
+
+            playRound();
+
+        </script>
 
 </body>
 
